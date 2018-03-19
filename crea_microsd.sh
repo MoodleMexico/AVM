@@ -404,7 +404,7 @@ copia_imagen_a_microsd(){
 # 9.- Limpia y llama funciones 
 ###############################################################################
 clear
-whiptail --clear --msgbox "\n            A ul a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
+whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
 verifica_root
 verifica_usb
 descarga_raspbian
