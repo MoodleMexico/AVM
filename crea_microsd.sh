@@ -370,7 +370,7 @@ crea_imagen_para_microsd(){
    # Permisos de ejecución para los scripts
    chmod +x $DIRECTORIO_IMAGEN_ROOT/usr/lib/$NOMBRE_PROYECTO/*.sh
    # Cambio de texto en archivo de redimensionado de particiones
-   sed -i "s|Resized root filesystem\. Rebooting in 5 seconds\.\.\.|\n            A ul a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n|" $DIRECTORIO_IMAGEN_ROOT/usr/lib/raspi-config/init_resize.sh
+   sed -i "s|Resized root filesystem\. Rebooting in 5 seconds\.\.\.|\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n|" $DIRECTORIO_IMAGEN_ROOT/usr/lib/raspi-config/init_resize.sh
    ##############################################################################
    # Script para actualización de Paquetes - actualiza_paquetes.sh
    sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/$NOMBRE_PROYECTO/actualiza_paquetes.sh|" $DIRECTORIO_IMAGEN_ROOT/etc/rc.local
