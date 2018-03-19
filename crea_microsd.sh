@@ -19,7 +19,8 @@
 #        son descargados muchos archivos de Internet que tienen un tamaño 
 #        considerable como la Wikipedia en Español - 16G aproximadamente.
 #
-# Autor: Jorge Diaz - jorge.diaz@gmail.com / jorge@integraci.com.mx
+# Autores: Jorge Diaz - jorge.diaz@gmail.com / jorge@integraci.com.mx
+#          Odin Mojica - odinmojica@gmail.com / odin@integraci.com.mx
 #
 # Licencia: GNU General Public License Versión 3 - http://www.gnu.org/licenses
 ###############################################################################
