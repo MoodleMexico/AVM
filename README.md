@@ -23,6 +23,14 @@ Puntos de acceso WiFi a contenidos educativos, usando arjetas de desarrollo Rasp
 ***
 
 
+La forma más fácil de crear la tarjeta MicroSD para las tarjetas es:
+```bash
+curl -sSL https://moodlemexico.github.io/AVM/crea_microsd.sh | bash -s /dev/sdX 
+```
+
+Dónde X es tu tarjeta MicroSD
+
+
 ## 1.- Preparación de la tarjeta Micro SD
 
 
