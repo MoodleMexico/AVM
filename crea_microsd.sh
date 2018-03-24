@@ -27,9 +27,9 @@
 # 1.- Variables
 ###############################################################################
 NOMBRE_PROYECTO="aulas_virtuales_moviles"
-DOMINIO_RASPBERRY="192.168.100.1"
-DIRECTORIO_TRABAJO="/tmp/$NOMBRE_PROYECTO"
 UNIDAD_MICROSD=$1                     # Valor introducido al ejecutar el script
+DOMINIO_RASPBERRY=$2
+DIRECTORIO_TRABAJO="/tmp/$NOMBRE_PROYECTO"
 ARCHIVO_RASPBIAN="2017-11-29-raspbian-stretch-lite"      # Nombre SIN extensión
 URL_RASPBIAN="https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/"
 # Moodle
@@ -60,9 +60,9 @@ verifica_root(){
    fi
 }
 ###############################################################################
-# 4.- Verificar si ingresó la unidad dónde se encuentra la MicroSD
+# 4.- Verificar argumentos de entrada del script MicroSD y nombre de dominio
 ###############################################################################
-verifica_usb(){
+verifica_argumentos(){
    if [ -z $UNIDAD_MICROSD ]; then
       echo -ne "\n\e[1;31mNo indicó que unidad\e[0m\n"
       exit 1
@@ -71,6 +71,9 @@ verifica_usb(){
          echo -ne "\n\e[1;31mNo existe el punto de montaje: \n\e[1;37m$UNIDAD_MICROSD\e[0m\n"
          exit 1
       fi
+   fi
+   if [ -z $DOMINIO_RASPBERRY ]; then
+      DOMINIO_RASPBERRY="192.168.100.1"
    fi
 }
 ###############################################################################
@@ -273,17 +276,17 @@ echo "\n\e[1;32mConfigurando: \e[1;37mDNSmasq\e[0m"
 cat > /etc/dnsmasq.conf << EOF 
 domain-needed
 bogus-priv
-local=/aula_virtual/ 
+local=/DOMINIO_RASPBERRY/ 
 expand-hosts
 interface=wlan0
 listen-address=127.0.0.1,192.168.100.1
-domain=aula_virtual
+domain=DOMINIO_RASPBERRY
 no-resolv
 cache-size=4096
 dhcp-range=wlan0,192.168.100.100,192.168.100.150,255.255.255.0,12h
 dhcp-option=option:router,192.168.100.1
 dhcp-option=252,"\n"
-address=/aula_virtual/192.168.100.1
+address=/DOMINIO_RASPBERRY/192.168.100.1
 EOF
 # Modificación de archivo /etc/rc.local
 echo "\n\e[1;32mModificando archivo: \e[1;37m/etc/rc.local\e[0m"
@@ -332,6 +335,7 @@ FIN_ARCHIVO
 ###############################################################################
 # 7.- Cambia valores en scripts
 ###############################################################################
+sed -i "s|DOMINIO_RASPBERRY|$DOMINIO_RASPBERRY|" $DIRECTORIO_TRABAJO/instala_paquetes.sh
 # Cambios en script de configuración de Moodle
 sed -i "s|DOMINIO_MOODLE|$DOMINIO_RASPBERRY|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|LENGUAJE_MOODLE|$LENGUAJE_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
@@ -434,7 +438,7 @@ copia_imagen_a_microsd(){
 clear
 whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
 verifica_root
-verifica_usb
+verifica_argumentos
 descarga_raspbian
 crea_imagen_para_microsd
 copia_imagen_a_microsd
