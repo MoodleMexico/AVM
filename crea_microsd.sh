@@ -27,18 +27,22 @@
 # 1.- Variables
 ###############################################################################
 NOMBRE_PROYECTO="aulas_virtuales_moviles"
+DOMINIO_RASPBERRY="192.168.100.1"
 DIRECTORIO_TRABAJO="/tmp/$NOMBRE_PROYECTO"
 UNIDAD_MICROSD=$1                     # Valor introducido al ejecutar el script
 ARCHIVO_RASPBIAN="2017-11-29-raspbian-stretch-lite"      # Nombre SIN extensión
 URL_RASPBIAN="https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/"
 # Moodle
-
-#sed -i "s|'moodle'|'moodledb'|" /var/www/html/config.php
-#sed -i "s|'username'|'usrmoodledb'|" /var/www/html/config.php
-#sed -i "s|'password'|'123456789'|" /var/www/html/config.php
-#sed -i "s|'/home/example/moodledata'|'/var/www/moodledata'|" /var/www/html/config.php
-#sed -i "s|example.com/moodle|192.168.100.1|" /var/www/html/config.php
-
+BD_MOODLE="moodledb"
+USUARIO_BD_MOODLE="usrmoodledb"
+CONTRASENA_USUARIO_BD_MOODLE="123456789"
+RUTA_MOODLEDATA="/var/www/moodledata"
+LENGUAJE_SITIO_MOODLE="es_mx"
+USUARIO_ADMINISTRADOR_MOODLE="admin"
+CONTRASENA_USUARIO_ADMINISTRADOR_MOODLE="password"
+CORREO_ELECTRONICO_ADMINISTRADOR_MOODLE="contacto@integraci.com.mx"
+NOMBRE_COMPLETO_SITIO_MOODLE="Aula Virtual Móvil"
+NOMBRE_CORTO_SITIO_MOODLE="AVM"
 ###############################################################################
 # 2.- Creación de directorio de trabajo
 ###############################################################################
@@ -296,26 +300,26 @@ cat > $DIRECTORIO_TRABAJO/instala_servicios.sh << FIN_ARCHIVO
 # Creación de Bases de Datos
 # Moodle
 echo "\n\e[1;32mCreando base de datos para LMS Moodle\e[0m"
-su postgres -c "psql -c \"create user usrmoodledb;\""
-su postgres -c "psql -c \"alter user usrmoodledb encrypted password '123456789';\""
-su postgres -c "psql -c \"create database moodledb;\""
-su postgres -c "psql -c \"alter database moodledb owner to usrmoodledb;\""
+su postgres -c "psql -c \"create user USUARIO_BASE_DE_DATOS_MOODLE;\""
+su postgres -c "psql -c \"alter user USUARIO_BASE_DE_DATOS_MOODLE encrypted password 'CONTRASENA_DE_USUARIO_BD_MOODLE';\""
+su postgres -c "psql -c \"create database BASE_DE_DATOS_MOODLE;\""
+su postgres -c "psql -c \"alter database BASE_DE_DATOS_MOODLE owner to USUARIO_BASE_DE_DATOS_MOODLE;\""
 # Cambios en archivo de configuración
-sed -i "s|'moodle'|'moodledb'|" /var/www/html/config.php
-sed -i "s|'username'|'usrmoodledb'|" /var/www/html/config.php
-sed -i "s|'password'|'123456789'|" /var/www/html/config.php
-sed -i "s|'/home/example/moodledata'|'/var/www/moodledata'|" /var/www/html/config.php
-sed -i "s|example.com/moodle|192.168.100.1|" /var/www/html/config.php
+sed -i "s|'moodle'|'BASE_DE_DATOS_MOODLE'|" /var/www/html/config.php
+sed -i "s|'username'|'USUARIO_BASE_DE_DATOS_MOODLE'|" /var/www/html/config.php
+sed -i "s|'password'|'CONTRASENA_DE_USUARIO_BD_MOODLE'|" /var/www/html/config.php
+sed -i "s|'/home/example/moodledata'|'RUTA_DIRECTORIO_MOODLEDATA'|" /var/www/html/config.php
+sed -i "s|example.com/moodle|DOMINIO_MOODLE|" /var/www/html/config.php
 # Desactivando DNSmasq
 systemctl stop dnsmasq.service
 # Instalación de Moodle 
 /usr/bin/php /var/www/html/admin/cli/install_database.php \
-   --lang=es_mx \
-   --adminuser="admin" \
-   --adminpass="password" \
-   --adminemail="admin@mail.net" \
-   --fullname="Aula Virtual Móvil" \
-   --shortname="AVM" \
+   --lang=LENGUAJE_MOODLE \
+   --adminuser="USUARIO_ADMIN_MOODLE" \
+   --adminpass="CONTRASENA_ADMIN_MOODLE" \
+   --adminemail="CORREO_ADMIN_MOODLE" \
+   --fullname="NOMBRE_SITIO_MOODLE" \
+   --shortname="NOMBRE_CORTO_MOODLE" \
    --agree-license 
 # Se elimina el archivo inde.html
 rm -f /var/www/html/index.html
@@ -326,7 +330,22 @@ reboot
 exit 0
 FIN_ARCHIVO
 ###############################################################################
-# 7.- Crea imagen para MicroSD
+# 7.- Cambia valores en scripts
+###############################################################################
+# Cambios en script de configuración de Moodle
+sed -i "s|BASE_DE_DATOS_MOODLE|$BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|USUARIO_BASE_DE_DATOS_MOODLE|$USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CONTRASENA_DE_USUARIO_BD_MOODLE|$CONTRASENA_USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|'$RUTA_MOODLEDATA'|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|DOMINIO_MOODLE|$DOMINIO_RASPBERRY|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|LENGUAJE_MOODLE|$LENGUAJE_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|USUARIO_ADMIN_MOODLE|$USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CONTRASENA_ADMIN_MOODLE|$CONTRASENA_USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CORREO_ADMIN_MOODLE|$CORREO_ELECTRONICO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|NOMBRE_SITIO_MOODLE|$NOMBRE_COMPLETO_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|NOMBRE_CORTO_MOODLE|$NOMBRE_CORTO_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+###############################################################################
+# 8.- Crea imagen para MicroSD
 # Foro Raspberry Pi - http://www.raspberrypi.org/forums/viewtopic.php?f=63&t=28860
 ###############################################################################
 crea_imagen_para_microsd(){
@@ -392,7 +411,7 @@ crea_imagen_para_microsd(){
    rmdir $DIRECTORIO_IMAGEN_BOOT $DIRECTORIO_IMAGEN_ROOT
 }
 ###############################################################################
-# 8.- Copia imagen a MicroSD
+# 9.- Copia imagen a MicroSD
 ###############################################################################
 copia_imagen_a_microsd(){
    if (whiptail --title "Advertencia" --yesno "Se borrará toda la información de $UNIDAD_MICROSD." --yes-button="Continuar" --no-button="Cancelar" --defaultno 8 78) then
@@ -410,7 +429,7 @@ copia_imagen_a_microsd(){
    fi
 }
 ###############################################################################
-# 9.- Limpia y llama funciones 
+# 10.- Limpia y llama funciones 
 ###############################################################################
 clear
 whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
