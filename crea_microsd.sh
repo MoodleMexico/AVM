@@ -343,7 +343,7 @@ sed -i "s|CORREO_ADMIN_MOODLE|$CORREO_ELECTRONICO_ADMINISTRADOR_MOODLE|" $DIRECT
 sed -i "s|CONTRASENA_DE_USUARIO_BD_MOODLE|$CONTRASENA_USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|USUARIO_BASE_DE_DATOS_MOODLE|$USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|BASE_DE_DATOS_MOODLE|$BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|'$RUTA_MOODLEDATA'|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|$RUTA_MOODLEDATA|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 ###############################################################################
 # 8.- Crea imagen para MicroSD
 # Foro Raspberry Pi - http://www.raspberrypi.org/forums/viewtopic.php?f=63&t=28860
