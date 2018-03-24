@@ -333,17 +333,17 @@ FIN_ARCHIVO
 # 7.- Cambia valores en scripts
 ###############################################################################
 # Cambios en script de configuración de Moodle
-sed -i "s|BASE_DE_DATOS_MOODLE|$BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|USUARIO_BASE_DE_DATOS_MOODLE|$USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|CONTRASENA_DE_USUARIO_BD_MOODLE|$CONTRASENA_USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|'$RUTA_MOODLEDATA'|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|DOMINIO_MOODLE|$DOMINIO_RASPBERRY|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|LENGUAJE_MOODLE|$LENGUAJE_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|USUARIO_ADMIN_MOODLE|$USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|CONTRASENA_ADMIN_MOODLE|$CONTRASENA_USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
-sed -i "s|CORREO_ADMIN_MOODLE|$CORREO_ELECTRONICO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|NOMBRE_SITIO_MOODLE|$NOMBRE_COMPLETO_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|NOMBRE_CORTO_MOODLE|$NOMBRE_CORTO_SITIO_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CONTRASENA_ADMIN_MOODLE|$CONTRASENA_USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|USUARIO_ADMIN_MOODLE|$USUARIO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CORREO_ADMIN_MOODLE|$CORREO_ELECTRONICO_ADMINISTRADOR_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|CONTRASENA_DE_USUARIO_BD_MOODLE|$CONTRASENA_USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|USUARIO_BASE_DE_DATOS_MOODLE|$USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|BASE_DE_DATOS_MOODLE|$BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
+sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|'$RUTA_MOODLEDATA'|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 ###############################################################################
 # 8.- Crea imagen para MicroSD
 # Foro Raspberry Pi - http://www.raspberrypi.org/forums/viewtopic.php?f=63&t=28860
