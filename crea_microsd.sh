@@ -134,14 +134,14 @@ exit 0
 FIN_ARCHIVO
 ###############################################################################
 # Inicia Beacon de identificación
-#cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
+cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
 #!/bin/sh
-#/bin/hciconfig hci0 up
-#/bin/hciconfig hci0 leadv 3
-#/bin/hciconfig hci0 noscan
-#/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
-#exit 0
-#FIN_ARCHIVO
+/bin/hciconfig hci0 up
+/bin/hciconfig hci0 leadv 3
+/bin/hciconfig hci0 noscan
+/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
+exit 0
+FIN_ARCHIVO
 ###############################################################################
 # Script para instalación de paquetes en Raspberry 
 # Se remueve la opción "-ne" en los "echo" ya que se ejecutarán por rc.local
@@ -192,27 +192,6 @@ wget -O kiwix.tar.bz2 http://download.kiwix.org/bin/kiwix-server-arm.tar.bz2
 tar -xjvf kiwix.tar.bz2 kiwix-serve
 mv kiwix-serve /usr/bin/
 rm -f kiwix.tar.bz2
-# Inicia el beacon al arrancar
-cat > /etc/init.d/beacon << EOF
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          beacon
-# Required-Start:    \$bluetooth
-# Required-Stop:     
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6 
-# Short-Description: Inicia el Beacon
-# Description:       Inicia la identificación del dispositivo mediante Beacon BLE
-### END INIT INFO
-/bin/hciconfig hci0 up
-/bin/hciconfig hci0 leadv 3
-/bin/hciconfig hci0 noscan
-/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
-exit 0
-EOF
-chmod +x /etc/init.d/beacon
-update-rc.d beacon defaults
-update-rc.d beacon enable
 # Inicia kiwix al arrancar
 cat > /etc/init.d/kiwix << EOF
 #!/bin/sh
@@ -342,8 +321,7 @@ systemctl stop dnsmasq.service
 rm -f /var/www/html/index.html
 # Modificación de archivo /etc/rc.local
 cat /usr/lib/NOMBRE_PROYECTO/rc.local > /etc/rc.local
-#sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/inicia_beacon.sh > /dev/null|" /etc/rc.local
-sed -i "s|CAMBIAR_TEXTO||" /etc/rc.local
+sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/inicia_beacon.sh > /dev/null|" /etc/rc.local
 reboot
 exit 0
 FIN_ARCHIVO
