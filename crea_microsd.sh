@@ -31,6 +31,14 @@ DIRECTORIO_TRABAJO="/tmp/$NOMBRE_PROYECTO"
 UNIDAD_MICROSD=$1                     # Valor introducido al ejecutar el script
 ARCHIVO_RASPBIAN="2017-11-29-raspbian-stretch-lite"      # Nombre SIN extensión
 URL_RASPBIAN="https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/"
+# Moodle
+
+#sed -i "s|'moodle'|'moodledb'|" /var/www/html/config.php
+#sed -i "s|'username'|'usrmoodledb'|" /var/www/html/config.php
+#sed -i "s|'password'|'123456789'|" /var/www/html/config.php
+#sed -i "s|'/home/example/moodledata'|'/var/www/moodledata'|" /var/www/html/config.php
+#sed -i "s|example.com/moodle|192.168.100.1|" /var/www/html/config.php
+
 ###############################################################################
 # 2.- Creación de directorio de trabajo
 ###############################################################################
@@ -126,14 +134,14 @@ exit 0
 FIN_ARCHIVO
 ###############################################################################
 # Inicia Beacon de identificación
-cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
+#cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
 #!/bin/sh
-/bin/hciconfig hci0 up
-/bin/hciconfig hci0 leadv 3
-/bin/hciconfig hci0 noscan
-/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
-exit 0
-FIN_ARCHIVO
+#/bin/hciconfig hci0 up
+#/bin/hciconfig hci0 leadv 3
+#/bin/hciconfig hci0 noscan
+#/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
+#exit 0
+#FIN_ARCHIVO
 ###############################################################################
 # Script para instalación de paquetes en Raspberry 
 # Se remueve la opción "-ne" en los "echo" ya que se ejecutarán por rc.local
@@ -178,18 +186,39 @@ unzip es_mx.zip -d /var/www/moodledata/lang
 echo "\n\e[1;32mDescargando: \e[1;37mWikipedia en Español\e[0m"
 mkdir /var/www/wikipedia
 cd /var/www/wikipedia
-#wget -O wikipedia.zim http://download.kiwix.org/zim/wikipedia/wikipedia_es_all_2017-05.zim
+wget -O wikipedia.zim http://download.kiwix.org/zim/wikipedia/wikipedia_es_all_2017-05.zim
 # Descarga Kiwix
 wget -O kiwix.tar.bz2 http://download.kiwix.org/bin/kiwix-server-arm.tar.bz2
 tar -xjvf kiwix.tar.bz2 kiwix-serve
 mv kiwix-serve /usr/bin/
 rm -f kiwix.tar.bz2
-# Inicia kiwix al arrancar
-cat > /etc/init.d/kiwix.sh << EOF
+# Inicia el beacon al arrancar
+cat > /etc/init.d/beacon << EOF
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          kiwix.sh
-# Required-Start:    $all
+# Provides:          beacon
+# Required-Start:    \$bluetooth
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6 
+# Short-Description: Inicia el Beacon
+# Description:       Inicia la identificación del dispositivo mediante Beacon BLE
+### END INIT INFO
+/bin/hciconfig hci0 up
+/bin/hciconfig hci0 leadv 3
+/bin/hciconfig hci0 noscan
+/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
+exit 0
+EOF
+chmod +x /etc/init.d/beacon
+update-rc.d beacon defaults
+update-rc.d beacon enable
+# Inicia kiwix al arrancar
+cat > /etc/init.d/kiwix << EOF
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          kiwix
+# Required-Start:    \$all
 # Required-Stop:     
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6 
@@ -199,8 +228,9 @@ cat > /etc/init.d/kiwix.sh << EOF
 /usr/bin/kiwix-serve --port=8080 --daemon /var/www/wikipedia/wikipedia.zim
 exit 0
 EOF
-chmod +x /etc/init.d/kiwix.sh
-update-rc.d kiwix.sh defaults
+chmod +x /etc/init.d/kiwix
+update-rc.d kiwix defaults
+update-rc.d kiwix enable
 # Permisos de archivos y directorios
 echo "\n\e[1;32mCambiando propietario a archivos en \e[1;37m/var/www\e[0m"
 chown -R www-data:www-data /var/www
@@ -312,7 +342,8 @@ systemctl stop dnsmasq.service
 rm -f /var/www/html/index.html
 # Modificación de archivo /etc/rc.local
 cat /usr/lib/NOMBRE_PROYECTO/rc.local > /etc/rc.local
-sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/inicia_beacon.sh > /dev/null|" /etc/rc.local
+#sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/inicia_beacon.sh > /dev/null|" /etc/rc.local
+sed -i "s|CAMBIAR_TEXTO||" /etc/rc.local
 reboot
 exit 0
 FIN_ARCHIVO
