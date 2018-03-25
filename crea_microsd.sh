@@ -146,7 +146,7 @@ cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
 /bin/hciconfig hci0 up
 /bin/hciconfig hci0 leadv 3
 /bin/hciconfig hci0 noscan
-/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6e 74 65 67 72 61 63 69 07 2e 6d 78 00 00 00 00
+/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 06 03 03 aa fe 16 16 aa fe 10 00 02 72 75 74 61 64 65 6c 61 6d 69 78 74 65 63 61 07 00
 exit 0
 FIN_ARCHIVO
 ###############################################################################
