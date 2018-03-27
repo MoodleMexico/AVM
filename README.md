@@ -30,8 +30,9 @@ La forma más fácil de crear la tarjeta MicroSD para las tarjetas es utilizando
 curl -sSL https://moodlemexico.github.io/AVM/crea_microsd.sh | bash -s /dev/sdX TU_DOMINIO
 ```
 
-Dónde X es tu tarjeta MicroSD y 
-TU_DOMINIO es el dominio al cual quieres que accedan los usuario.
+sdX        -> Es tu tarjeta MicroSD
+
+TU_DOMINIO -> El nombre de dominio al cual quieres que accedan los usuarios.
 
 Ejemplo: 
 ```bash
