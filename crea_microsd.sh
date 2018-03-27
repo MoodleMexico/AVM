@@ -528,4 +528,4 @@ descarga_raspbian
 crea_imagen_para_microsd
 copia_imagen_a_microsd
 cd ~/
-crea_cadena_beacon
+#crea_cadena_beacon
