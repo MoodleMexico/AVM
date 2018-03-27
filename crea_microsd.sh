@@ -418,8 +418,9 @@ crea_cadena_beacon(){
        CADENA_BEACON="$CADENA_BEACON 00"
    done
    echo -ne "\n$CADENA_BEACON\n\n"
-   PRIMER_VALOR=$((14 + (((${#CADENA_BEACON}) - 1 ) / 3 )))
-   echo -ne "\niPrimer Valor: $PRIMER_VALOR\n"
+   CADENA_BEACON="$CADENA_BEACON ` printf "%02X" \'${CADENA:($a-1):1}`"
+   PRIMER_VALOR=` printf "%02X" \'$((14 + (((${#CADENA_BEACON}) - 1 ) / 3 )))
+   echo -ne "\nPrimer Valor: $PRIMER_VALOR\n"
    
 }
 ###############################################################################
