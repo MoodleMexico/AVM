@@ -427,8 +427,8 @@ crea_cadena_beacon(){
    echo -ne "\nPrimer Valor: $PRIMER_VALOR\n"
    
    
-   #SEGUNDO_VALOR="` printf "%02X" \'$((6 + (((${#CADENA_BEACON}) - 1 ) / 3 )))`"
-   #echo -ne "\nSegundo Valor: $SEGUNDO_VALOR Yeah Yeah\n"
+   SEGUNDO_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 6 ))`"
+   echo -ne "\nSegundo Valor: $SEGUNDO_VALOR\n"
    
 }
 ###############################################################################
