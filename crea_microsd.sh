@@ -422,7 +422,7 @@ crea_cadena_beacon(){
    PRIMER_VALOR=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
    SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
    SEGUNDO_VALOR=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
-   NUEVA_CADENA="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe $SEGUNDO_VALOR 16 aa fe 10 00 02 $CADENA_BEACON\n"
+   NUEVA_CADENA="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe $SEGUNDO_VALOR 16 aa fe 10 00 02$CADENA_BEACON\n"
    echo -ne "La nueva cadena es:\n$NUEVA_CADENA"
 }
 ###############################################################################
