@@ -25,7 +25,7 @@ Puntos de acceso WiFi a contenidos educativos, usando arjetas de desarrollo Rasp
 
 # Instalación Automatizada
 
-La forma más fácil de crear la tarjeta MicroSD para las tarjetas es utilizando este comando desde la terminal de Linux:
+La forma más fácil de crear la tarjeta MicroSD para las tarjetas es utilizando este comando desde la terminal de Linux con usuario **root**:
 ```bash
 curl -sSL https://moodlemexico.github.io/AVM/crea_microsd.sh | bash -s /dev/sdX TU_DOMINIO
 ```
