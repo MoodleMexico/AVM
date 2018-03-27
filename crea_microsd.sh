@@ -425,11 +425,12 @@ crea_cadena_beacon(){
    
    
    PRIMER_VALOR=$(((${BYTES_CADENA_BEACON}) + 14 ))
-   echo -ne "\nSegundo Valor: $PRIMER_VALOR\n"
    HEX=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
-   echo "Hexadecimal:  $HEX"
-   SEGUNDO_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 6 ))`"
-   echo -ne "\nSegundo Valor: $SEGUNDO_VALOR\n"
+   echo -ne "Primer Hexadecimal:  $HEX\n"
+   
+   SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
+   HEX=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
+   echo -ne "Hexadecimal:  $HEX\n"
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
