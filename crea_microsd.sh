@@ -417,19 +417,17 @@ crea_cadena_beacon(){
    done
    BYTES_CADENA_BEACON=$((${#CADENA_BEACON} / 3))
    BYTES_CADENA_BEACON=$((${BYTES_CADENA_BEACON} - $DIFERENCIA))
-   # echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
    PRIMER_VALOR=$(((${BYTES_CADENA_BEACON}) + 14 ))
    PRIMER_VALOR=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
    SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
    SEGUNDO_VALOR=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
    MENSAJE_BEACON="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe $SEGUNDO_VALOR 16 aa fe 10 00 02$CADENA_BEACON\n"
-   echo -ne "La nueva cadena es:\n$NUEVA_CADENA"
    LONGITUD_CADENA_BEACON=${#MENSAJE_BEACON}
-   echo -ne "Longitud de la nueva cadena es: $LONGITUD_CADENA_BEACON"
-   
-   #if [ $a -le $LARGO_CADENA ]; then
-   #   sed -i "s|MENSAJE_BEACON|$MENSAJE_BEACON|" $DIRECTORIO_TRABAJO/inicia_beacon.sh
-   #fi
+   if [ $LONGITUD_CADENA_BEACON -le 109 ]; then
+      sed -i "s|MENSAJE_BEACON|$MENSAJE_BEACON|" $DIRECTORIO_TRABAJO/inicia_beacon.sh
+   else
+      sed -i "s|MENSAJE_BEACON|0x08 0x0008 1B 02 01 06 03 03 aa fe 13 16 aa fe 10 00 02 69 6E 74 65 67 72 61 63 69 07 2E 6D 78 00 00 00 00|" $DIRECTORIO_TRABAJO/inicia_beacon.sh
+   fi
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
