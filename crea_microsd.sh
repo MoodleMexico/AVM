@@ -431,6 +431,7 @@ crea_cadena_beacon(){
    
    NUEVA_CADENA="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe 13 16 aa fe 10 00 $SEGUNDO_VALOR 16 aa fe 10 00 02$CADENA_BEACON\n"
    echo -ne "La nueva cadena es:\n$NUEVA_CADENA"
+   echo -ne "\n$CADENA_BEACON\n\n"
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
