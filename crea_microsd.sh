@@ -517,11 +517,11 @@ copia_imagen_a_microsd(){
 # 11.- Limpia y llama funciones 
 ###############################################################################
 clear
-#whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
-#verifica_root
-#verifica_argumentos
-#descarga_raspbian
-#crea_imagen_para_microsd
-#copia_imagen_a_microsd
-#cd ~/
+whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
+verifica_root
+verifica_argumentos
+descarga_raspbian
+crea_imagen_para_microsd
 crea_cadena_beacon
+copia_imagen_a_microsd
+cd ~/
