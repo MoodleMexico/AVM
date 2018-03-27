@@ -429,7 +429,7 @@ crea_cadena_beacon(){
    echo -ne "Primer Hexadecimal:  $HEX\n"
    
    SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
-   HEX=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
+   HEX=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
    echo -ne "Hexadecimal:  $HEX\n"
 }
 ###############################################################################
