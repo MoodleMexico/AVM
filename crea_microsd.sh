@@ -521,7 +521,7 @@ whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\
 verifica_root
 verifica_argumentos
 descarga_raspbian
-crea_imagen_para_microsd
 crea_cadena_beacon
+crea_imagen_para_microsd
 copia_imagen_a_microsd
 cd ~/
