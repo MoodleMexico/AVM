@@ -418,7 +418,7 @@ crea_cadena_beacon(){
        CADENA_BEACON="$CADENA_BEACON 00"
    done
    echo -ne "\n$CADENA_BEACON\n\n"
-   LONGITUD_CADENA_BEACON=$((((${#CADENA_BEACON}) - 1) / 3 ))
+   LONGITUD_CADENA_BEACON=$(((${#CADENA_BEACON})-1)/3))
    
    echo -ne "Longitud_Cadena: $LONGITUD_CADENA_BEACON"
    PRIMER_VALOR="` printf "%02X" \'$((14 + (((${#CADENA_BEACON}) - 1 ) / 3 )))`"
