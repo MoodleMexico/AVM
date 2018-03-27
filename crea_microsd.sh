@@ -146,7 +146,7 @@ cat > $DIRECTORIO_TRABAJO/inicia_beacon.sh << FIN_ARCHIVO
 /bin/hciconfig hci0 up
 /bin/hciconfig hci0 leadv 3
 /bin/hciconfig hci0 noscan
-/usr/bin/hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 06 03 03 aa fe 16 16 aa fe 10 00 02 72 75 74 61 64 65 6c 61 6d 69 78 74 65 63 61 07 00
+/usr/bin/hcitool -i hci0 cmd MENSAJE_BEACON
 exit 0
 FIN_ARCHIVO
 ###############################################################################
@@ -422,8 +422,14 @@ crea_cadena_beacon(){
    PRIMER_VALOR=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
    SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
    SEGUNDO_VALOR=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
-   NUEVA_CADENA="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe $SEGUNDO_VALOR 16 aa fe 10 00 02$CADENA_BEACON\n"
+   MENSAJE_BEACON="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe $SEGUNDO_VALOR 16 aa fe 10 00 02$CADENA_BEACON\n"
    echo -ne "La nueva cadena es:\n$NUEVA_CADENA"
+   LONGITUD_CADENA_BEACON=${#MENSAJE_BEACON}
+   echo -ne "Longitud de la nueva cadena es: $LONGITUD_CADENA_BEACON"
+   
+   #if [ $a -le $LARGO_CADENA ]; then
+   #   sed -i "s|MENSAJE_BEACON|$MENSAJE_BEACON|" $DIRECTORIO_TRABAJO/inicia_beacon.sh
+   #fi
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
