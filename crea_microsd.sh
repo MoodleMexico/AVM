@@ -349,7 +349,79 @@ sed -i "s|USUARIO_BASE_DE_DATOS_MOODLE|$USUARIO_BD_MOODLE|" $DIRECTORIO_TRABAJO/
 sed -i "s|BASE_DE_DATOS_MOODLE|$BD_MOODLE|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 sed -i "s|RUTA_DIRECTORIO_MOODLEDATA|$RUTA_MOODLEDATA|" $DIRECTORIO_TRABAJO/instala_servicios.sh
 ###############################################################################
-# 8.- Crea imagen para MicroSD
+# 8.- Crea cadena Beacon
+###############################################################################
+crea_cadena_beacon(){
+   CADENA=$DOMINIO_RASPBERRY
+   # Limpia "http//" o "https://" de la cadena
+   CADENA=${CADENA#https://}
+   CADENA=${CADENA#http://}
+   LARGO_CADENA=${#CADENA}
+   a=0
+   BANDERA=0
+   CADENA_BEACON=''
+   while [ $a -le $LARGO_CADENA ]
+   do
+      a=$(($a+1))
+      CARACTER=${CADENA:($a-1):1} 
+      if [[ -z $CARACTER ]]; then
+         continue
+      fi
+      if [[ $CARACTER = "." ]]; then 
+         CADENA_TLD=$(echo ${CADENA:($a-1):4})
+         case "$CADENA_TLD" in
+            .com)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 07"
+               ;;
+            .org)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 08"
+               ;;
+            .edu)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 09"
+               ;; 
+            .net)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 0a"
+               ;;
+            .biz)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 0c"
+               ;;
+            .gov)
+               a=$(($a+3));
+               CADENA=${CADENA%$CADENA_TLD} 
+               CADENA_BEACON="$CADENA_BEACON 0d"
+               ;;
+            *)
+               CADENA_BEACON="$CADENA_BEACON `printf "%02X" \'${CADENA:($a-1):1}`"
+               ;;
+         esac
+      else
+         echo -ne "\n$CARACTER\n\n"
+         CADENA_BEACON="$CADENA_BEACON ` printf "%02X" \'${CADENA:($a-1):1}`"
+      fi
+   done
+   echo -ne "$CADENA_BEACON\n"
+   DIFERENCIA=$(((51 - (${#CADENA_BEACON}))/3))   
+   echo -ne "\n$DIFERENCIA\n"
+   b=0
+   while [ $b -lt $DIFERENCIA ]
+   do
+       b=$(($b+1));
+       CADENA_BEACON="$CADENA_BEACON 00"
+   done
+   echo -ne "\n$CADENA_BEACON\n\n"
+}
+###############################################################################
+# 9.- Crea imagen para MicroSD
 # Foro Raspberry Pi - http://www.raspberrypi.org/forums/viewtopic.php?f=63&t=28860
 ###############################################################################
 crea_imagen_para_microsd(){
@@ -415,7 +487,7 @@ crea_imagen_para_microsd(){
    rmdir $DIRECTORIO_IMAGEN_BOOT $DIRECTORIO_IMAGEN_ROOT
 }
 ###############################################################################
-# 9.- Copia imagen a MicroSD
+# 10.- Copia imagen a MicroSD
 ###############################################################################
 copia_imagen_a_microsd(){
    if (whiptail --title "Advertencia" --yesno "Se borrará toda la información de $UNIDAD_MICROSD." --yes-button="Continuar" --no-button="Cancelar" --defaultno 8 78) then
@@ -433,7 +505,7 @@ copia_imagen_a_microsd(){
    fi
 }
 ###############################################################################
-# 10.- Limpia y llama funciones 
+# 11.- Limpia y llama funciones 
 ###############################################################################
 clear
 whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
@@ -443,3 +515,4 @@ descarga_raspbian
 crea_imagen_para_microsd
 copia_imagen_a_microsd
 cd ~/
+crea_cadena_beacon
