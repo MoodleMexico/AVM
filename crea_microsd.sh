@@ -405,7 +405,6 @@ crea_cadena_beacon(){
                ;;
          esac
       else
-         echo -ne "\n$CARACTER\n\n"
          CADENA_BEACON="$CADENA_BEACON ` printf "%02X" \'${CADENA:($a-1):1}`"
       fi
    done
@@ -419,6 +418,9 @@ crea_cadena_beacon(){
        CADENA_BEACON="$CADENA_BEACON 00"
    done
    echo -ne "\n$CADENA_BEACON\n\n"
+   PRIMER_VALOR=$((14 + (((${#CADENA_BEACON}) - 1 ) / 3 )))
+   echo -ne "\niPrimer Valor: $PRIMER_VALOR\n"
+   
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
