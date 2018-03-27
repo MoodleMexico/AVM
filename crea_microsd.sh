@@ -422,9 +422,9 @@ crea_cadena_beacon(){
    #BYTES_CADENA_BEACON=$((     ((${#CADENA_BEACON})-1)/3      ))
    BYTES_CADENA_BEACON=$(${BYTES_CADENA_BEACON}-1)
    echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
-      
-   PRIMER_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 14 ))`"
-   echo -ne "\nPrimer Valor: $PRIMER_VALOR\n"
+   PRIMERO=$(($BYTES_CADENA_BEACON + 14))
+   PRIMER_VALOR="` printf "%02X" $PRIMERO`"
+   echo -ne "\nPrimer Valor: $PRIMERO\n"
    
    
    SEGUNDO_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 6 ))`"
