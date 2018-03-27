@@ -419,9 +419,7 @@ crea_cadena_beacon(){
    done
    echo -ne "\n$CADENA_BEACON\n\n"
    
-   #BYTES_CADENA_BEACON=$((     ((${#CADENA_BEACON})-1)/3      ))
-   BYTES_CADENA_BEACON=$((${#CADENA_BEACON} - 1))
-   BYTES_CADENA_BEACON=$((${BYTES_CADENA_BEACON} / 3))
+   BYTES_CADENA_BEACON=$((${#CADENA_BEACON} / 3))
    echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
    PRIMERO=$((${BYTES_CADENA_BEACON} + 14))
    echo -ne "\n$PRIMERO\n"
@@ -525,7 +523,7 @@ whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\
 verifica_root
 verifica_argumentos
 descarga_raspbian
-crea_imagen_para_microsd
-copia_imagen_a_microsd
+#crea_imagen_para_microsd
+#copia_imagen_a_microsd
 cd ~/
-#crea_cadena_beacon
+crea_cadena_beacon
