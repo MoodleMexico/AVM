@@ -526,6 +526,6 @@ verifica_root
 verifica_argumentos
 descarga_raspbian
 crea_imagen_para_microsd
-#copia_imagen_a_microsd
+copia_imagen_a_microsd
 cd ~/
 crea_cadena_beacon
