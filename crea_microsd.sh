@@ -2,7 +2,7 @@
 ###############################################################################
 # Comunidad Moodle México - Aula Virtual Móvil
 # Script para crear las tarjetas MicroSD para una Aula Virtual Móvil, en una
-# Raspberry Pi 3.
+# Raspberry Pi 3 o Raspberry Pi Zero W.
 #
 # Actualizado para la versión: 2017-11-29-raspbian-stretch-lite
 # 
