@@ -422,8 +422,12 @@ crea_cadena_beacon(){
    BYTES_CADENA_BEACON=$((${#CADENA_BEACON} / 3))
    BYTES_CADENA_BEACON=$((${BYTES_CADENA_BEACON} - $DIFERENCIA))
    echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
-   PRIMER_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 14 ))`"
+   
+   
+   PRIMER_VALOR=$(((${BYTES_CADENA_BEACON}) + 14 ))
    echo -ne "\nSegundo Valor: $PRIMER_VALOR\n"
+   HEX=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
+   echo "Hexadecimal:  $HEX"
    SEGUNDO_VALOR="` printf "%02X" \'$(((${BYTES_CADENA_BEACON}) + 6 ))`"
    echo -ne "\nSegundo Valor: $SEGUNDO_VALOR\n"
 }
@@ -515,11 +519,11 @@ copia_imagen_a_microsd(){
 # 11.- Limpia y llama funciones 
 ###############################################################################
 clear
-whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
-verifica_root
-verifica_argumentos
-descarga_raspbian
+#whiptail --clear --msgbox "\n            A u l a   V i r t u a l   M ó v i l\n\n                            por\n\n                Comunidad Moodle México\n\n\n            http://comunidadmoodlemexico.org\n           contacto@comunidadmoodlemexico.org\n" 20 60
+#verifica_root
+#verifica_argumentos
+#descarga_raspbian
 #crea_imagen_para_microsd
 #copia_imagen_a_microsd
-cd ~/
+#cd ~/
 crea_cadena_beacon
