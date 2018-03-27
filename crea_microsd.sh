@@ -408,7 +408,7 @@ crea_cadena_beacon(){
          CADENA_BEACON="$CADENA_BEACON ` printf "%02X" \'${CADENA:($a-1):1}`"
       fi
    done
-   echo -ne "$CADENA_BEACON\n"
+  # echo -ne "$CADENA_BEACON\n"
    DIFERENCIA=$(((51 - (${#CADENA_BEACON}))/3))   
    #echo -ne "\n$DIFERENCIA\n"
    b=0
@@ -417,20 +417,20 @@ crea_cadena_beacon(){
        b=$(($b+1));
        CADENA_BEACON="$CADENA_BEACON 00"
    done
-   echo -ne "\n$CADENA_BEACON\n\n"
+   #echo -ne "\n$CADENA_BEACON\n\n"
    
    BYTES_CADENA_BEACON=$((${#CADENA_BEACON} / 3))
    BYTES_CADENA_BEACON=$((${BYTES_CADENA_BEACON} - $DIFERENCIA))
-   echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
-   
-   
+   # echo -ne "Longitud_Cadena: $BYTES_CADENA_BEACON"
    PRIMER_VALOR=$(((${BYTES_CADENA_BEACON}) + 14 ))
-   HEX=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
-   echo -ne "Primer Hexadecimal:  $HEX\n"
-   
+   PRIMER_VALOR=`echo "ibase=10;obase=16;$PRIMER_VALOR"|bc`
+   echo -ne "Primer Hexadecimal:  $PRIMER_VALOR\n"
    SEGUNDO_VALOR=$(((${BYTES_CADENA_BEACON}) + 6 ))
-   HEX=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
-   echo -ne "Hexadecimal:  $HEX\n"
+   SEGUNDO_VALOR=`echo "ibase=10;obase=16;$SEGUNDO_VALOR"|bc`
+   echo -ne "Hexadecimal 2:  $SEGUNDO_VALOR\n"
+   
+   NUEVA_CADENA="0x08 0x0008 $PRIMER_VALOR 02 01 06 03 03 aa fe 13 16 aa fe 10 00 $SEGUNDO_VALOR$CADENA_BEACON\n"
+   echo -ne "La nueva cadena es:\n$NUEVA_CADENA"
 }
 ###############################################################################
 # 9.- Crea imagen para MicroSD
