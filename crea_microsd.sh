@@ -9,7 +9,9 @@
 # Uso: - Descargue el archivo
 #      - Inserte su tarjeta MicroSD
 #      - Ejecute como usuario root
-#        ./crea_microsd.sh /dev/sdX     <===== X es la tarjeta MicroSD
+#        ./crea_microsd.sh /dev/sdX DOMINIO
+#        --- X es la tarjeta MicroSD
+#        --- DOMINIO sin TLD Ej. integraci.com.mx
 #      - Inserta la tarjeta en la tarjeta Raspberry.
 #      - Conecta la Raspberry Pi a la red usando un cable.
 #      - Conecta la alimentación.
@@ -19,8 +21,11 @@
 #        son descargados muchos archivos de Internet que tienen un tamaño 
 #        considerable como la Wikipedia en Español - 16G aproximadamente.
 #
-# Autores: Jorge Diaz - jorge.diaz@gmail.com / jorge@integraci.com.mx
-#          Odin Mojica - odinmojica@gmail.com / odin@integraci.com.mx
+# Ejemplo de Uso: $ su -c "crea_microsd.sh /dev/sdb integraci.com.mx
+#
+# Autores: Jorge Diaz - jorge@integraci.com.mx
+#          Odin Mojica - odin@integraci.com.mx
+#          Victor Mejía - victor@integraci.com.mx
 #
 # Licencia: GNU General Public License Versión 3 - http://www.gnu.org/licenses
 ###############################################################################
