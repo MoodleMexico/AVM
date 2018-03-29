@@ -118,7 +118,7 @@ cat > $DIRECTORIO_TRABAJO/rc.local << FIN_ARCHIVO
 # Imprimir dirección(es) IP
 _IP=\$(hostname -I) || true
 if [ "\$_IP" ]; then
-  printf "Mi dirección IP es %s\n" "\$_IP"
+  printf "Aula Virtual IP - %s\n" "\$_IP"
 fi
 CAMBIAR_TEXTO
 exit 0
