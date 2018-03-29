@@ -196,7 +196,7 @@ unzip es_mx.zip -d /var/www/moodledata/lang
 echo "\n\e[1;32mDescargando: \e[1;37mWikipedia en Español\e[0m"
 mkdir /var/www/wikipedia
 cd /var/www/wikipedia
-#wget -O wikipedia.zim http://download.kiwix.org/zim/wikipedia/wikipedia_es_all_2017-05.zim
+wget -O wikipedia.zim http://download.kiwix.org/zim/wikipedia/wikipedia_es_all_2017-05.zim
 # Descarga Kiwix
 wget -O kiwix.tar.bz2 http://download.kiwix.org/bin/kiwix-server-arm.tar.bz2
 tar -xjvf kiwix.tar.bz2 kiwix-serve
