@@ -4,7 +4,7 @@
 # Script para crear las tarjetas MicroSD para una Aula Virtual Móvil, en una
 # Raspberry Pi 3 o Raspberry Pi Zero W.
 #
-# Actualizado para la versión: 2017-11-29-raspbian-stretch-lite
+# Actualizado para la versión del 14 de Marzo de 2018.
 # 
 # Uso: - Descargue el archivo
 #      - Inserte su tarjeta MicroSD
@@ -326,6 +326,17 @@ systemctl stop dnsmasq.service
    --agree-license 
 # Se elimina el archivo inde.html
 rm -f /var/www/html/index.html
+# Modificación de archivo /etc/rc.local
+cat /usr/lib/NOMBRE_PROYECTO/rc.local > /etc/rc.local
+sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/ultimo_reinicio.sh > /dev/null|" /etc/rc.local
+reboot
+exit 0
+FIN_ARCHIVO
+###############################################################################
+# Script para el último reinicio
+###############################################################################
+cat > $DIRECTORIO_TRABAJO/ultimo_reinicio.sh << FIN_ARCHIVO
+#!/bin/sh -e
 # Modificación de archivo /etc/rc.local
 cat /usr/lib/NOMBRE_PROYECTO/rc.local > /etc/rc.local
 sed -i "s|CAMBIAR_TEXTO|/bin/sh /usr/lib/NOMBRE_PROYECTO/inicia_beacon.sh > /dev/null|" /etc/rc.local
