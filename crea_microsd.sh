@@ -21,7 +21,7 @@
 #        son descargados muchos archivos de Internet que tienen un tamaño 
 #        considerable como la Wikipedia en Español - 16G aproximadamente.
 #
-# Ejemplo de Uso: $ su -c "crea_microsd.sh /dev/sdb integraci.com.mx
+# Ejemplo de Uso: $ su -c "crea_microsd.sh /dev/sdb integraci.com.mx"
 #
 # Autor: http://integraci.com.mx
 #
