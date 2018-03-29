@@ -30,8 +30,8 @@ NOMBRE_PROYECTO="aulas_virtuales_moviles"
 UNIDAD_MICROSD=$1                     # Valor introducido al ejecutar el script
 DOMINIO_RASPBERRY=$2
 DIRECTORIO_TRABAJO="/tmp/$NOMBRE_PROYECTO"
-ARCHIVO_RASPBIAN="2017-11-29-raspbian-stretch-lite"      # Nombre SIN extensión
-URL_RASPBIAN="https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-12-01/"
+ARCHIVO_RASPBIAN="2018-03-13-raspbian-stretch-lite"      # Nombre SIN extensión
+URL_RASPBIAN="https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-03-14/"
 # Moodle
 BD_MOODLE="moodledb"
 USUARIO_BD_MOODLE="usrmoodledb"
